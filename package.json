@@ -20,6 +20,7 @@
     "@ionic/vue": "^8.0.0",
     "@ionic/vue-router": "^8.0.0",
     "ionicons": "^7.0.0",
+    "pinia": "^2.2.0",
     "vue": "^3.3.0",
     "vue-router": "^4.2.0"
   },
@@ -39,5 +40,5 @@
     "vitest": "^0.34.6",
     "vue-tsc": "^2.0.22"
   },
-  "description": "An Ionic project"
+  "description": "Lightscape"
 }
