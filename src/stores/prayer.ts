@@ -1,7 +1,24 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { PrayerRequest } from '@/types/Entity'
 
 export const usePrayerStore = defineStore('prayer', () => {
+  const requests = ref<PrayerRequest[]>([])
+
+  const loadRequests = () => {
+    const prayerRequests = localStorage.getItem("prayerRequests")
+    requests.value = prayerRequests !== null ? JSON.parse(prayerRequests) : []
+  }
+
+  const addRequest = (content: string) => {
+    const request = new PrayerRequest()
+    request.content = content
+
+    requests.value.push(request)
+
+    localStorage.setItem("prayerRequests", JSON.stringify(requests.value))
+  }
+
   const count = ref(0)
   const name = ref('Greg')
   const doubleCount = computed(() => count.value * 2)
@@ -9,5 +26,5 @@ export const usePrayerStore = defineStore('prayer', () => {
     count.value++
   }
 
-  return { count, name, doubleCount, increment }
+  return { requests, loadRequests, addRequest, count, name, doubleCount, increment }
 })
