@@ -40,6 +40,28 @@ export class User extends Entity {
   }
 }
 
+export class Media extends Entity {
+  url: string
+
+  constructor() {
+    super()
+    this.type = EntityType.Media
+
+    this.url = ""
+  }
+}
+
+export class Scripture extends Entity {
+  ref: string
+
+  constructor() {
+    super()
+    this.type = EntityType.Scripture
+
+    this.ref = ""
+  }
+}
+
 export class Post extends Entity {
   content: string
   thread: Entity[]
@@ -52,12 +74,30 @@ export class Post extends Entity {
     this.thread = []
   }
 
-  get media() {
-    return this.thread.filter((entity) => entity.type === EntityType.Media)
+  get media(): Media[] {
+    return <Media[]>this.thread.filter((entity) => entity.type === EntityType.Media)
   }
 
-  get scripture() {
-    return this.thread.filter((entity) => entity.type === EntityType.Scripture)
+  get scripture(): Scripture[] {
+    return <Scripture[]>this.thread.filter((entity) => entity.type === EntityType.Scripture)
+  }
+
+  get replies(): Post[] {
+    return <Post[]>this.thread.filter((entity) => entity.type === EntityType.Post)
+  }
+ }
+
+export class Answer extends Post {
+  constructor() {
+    super()
+    this.type = EntityType.Answer
+  }
+}
+
+export class Note extends Post {
+  constructor() {
+    super()
+    this.type = EntityType.Note
   }
 }
 
@@ -67,11 +107,11 @@ export class PrayerRequest extends Post {
     this.type = EntityType.PrayerRequest
   }
 
-  get answers() {
-    return this.thread.filter((entity) => entity.type === EntityType.Answer)
+  get answers(): Answer[] {
+    return <Answer[]>this.thread.filter((entity) => entity.type === EntityType.Answer)
   }
 
-  get notes() {
-    return this.thread.filter((entity) => entity.type === EntityType.Note)
+  get notes(): Note[] {
+    return <Note[]>this.thread.filter((entity) => entity.type === EntityType.Note)
   }
 }
